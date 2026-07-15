@@ -18,7 +18,7 @@ This lecture sequence develops a practical way to describe algorithm efficiency 
 
 ### 1. Reconsidering the “lines executed” model
 
-Earlier lectures estimated runtime by counting executed lines of code. For the iterative Fibonacci algorithm, that produced approximately $2n+2$ executed lines:
+Earlier lectures estimated runtime by counting executed lines of code. For the iterative Fibonacci algorithm, assuming an integer input $n\ge1$, that produced approximately $2n+2$ executed lines:
 
 ```text
 Fibonacci(n):
@@ -173,7 +173,7 @@ The central asymptotic question is not the exact time for one input, but how run
 
 ### 10. Definition
 
-For functions $f$ and $g$, we say
+Throughout these notes, $f$ and $g$ are assumed to be eventually nonnegative runtime or growth functions. We say
 
 $$
 f(n)=O(g(n))
@@ -260,7 +260,7 @@ Removing constant factors and lower-order terms produces expressions that are ea
 
 #### It is largely machine-independent
 
-Computer speed, compiler behavior, architecture, and memory hierarchy may significantly affect actual time, but their effect is generally modeled as a constant factor. Big-O deliberately ignores such factors.
+Computer speed, compiler behavior, architecture, and memory hierarchy may significantly affect actual time, but the introductory RAM model generally treats their effect as a constant factor. Big-O analysis under this model deliberately ignores such factors; other models, such as external-memory analysis, may account for them explicitly.
 
 ### 13. Limitations and warnings
 
@@ -327,7 +327,7 @@ $$
 n^{100}=O(1.1^n).
 $$
 
-The second relationship can feel surprising: $n^{100}$ is enormous while $1.1^n$ grows modestly at first. Nevertheless, the exponential eventually overtakes the polynomial once $n$ becomes sufficiently large—possibly around an impractically huge crossover such as tens or hundreds of thousands. Afterward, it pulls ahead rapidly.
+The second relationship can feel surprising: $n^{100}$ is enormous while $1.1^n$ grows modestly at first. Nevertheless, the exponential eventually overtakes the polynomial once $n$ becomes sufficiently large—at about $n=9{,}624$ in this example. Afterward, it pulls ahead rapidly.
 
 #### Rule 4: every fixed power of $\log n$ grows slower than every positive power of $n$
 
@@ -343,7 +343,7 @@ $$
 n\log n=O(n^2).
 $$
 
-#### Rule 5: in a sum, retain the fastest-growing term
+#### Rule 5: in a sum of nonnegative terms, retain the fastest-growing term
 
 $$
 n^2+n=O(n^2),
@@ -353,11 +353,11 @@ $$
 2^n+n^9=O(2^n).
 $$
 
-Lower-order terms become insignificant relative to the dominant term as $n$ grows.
+For eventually nonnegative terms, lower-order terms become insignificant relative to the dominant term as $n$ grows.
 
 ### 15. Analyzing the iterative Fibonacci algorithm
 
-Revisit the array-based algorithm:
+Revisit the array-based algorithm, again assuming $n\ge1$:
 
 ```text
 Fibonacci(n):
@@ -383,41 +383,41 @@ Setting `F[0]` and `F[1]` may require several machine operations, but the number
 
 The loop runs from 2 through $n$, for $n-1$ iterations, which is $O(n)$.
 
-#### Work per iteration: $O(n)$ under the lecture's large-integer model
+#### Work in iteration $i$: $\Theta(i)$ under the lecture's large-integer model
 
 Array lookups and the store are treated as $O(1)$. The addition is not constant-time because the Fibonacci values are large.
 
-The value $F_n$ has a number of decimal digits proportional to $n$—roughly $0.209n$, which the lecture rounds to about $n/5$. Grade-school addition must process each digit and propagate carries, so adding values of this size takes $O(n)$ time in this model.
+The value $F_i$ has $\Theta(i)$ bits and a number of decimal digits proportional to $i$—roughly $0.209i$, which the lecture rounds to about $i/5$. Grade-school addition must process these bits or digits and propagate carries, so the addition in iteration $i$ takes $\Theta(i)$ time in this model.
 
-#### Return: $O(1)$
+#### Return: $O(1)$ when returning a reference
 
-The final address calculation, lookup, and stack return constitute a constant amount of work under the model.
+The final address calculation, lookup, and stack return constitute a constant amount of work if the implementation returns a reference to the already-computed integer. Copying the integer would instead take $\Theta(n)$ time, which does not change the total bound below.
 
 #### Total
 
 Adding all contributions gives
 
 $$
-O(n)+O(1)+O(1)+O(n)\cdot O(n)+O(1).
+O(n)+O(1)+O(1)+\sum_{i=2}^{n}\Theta(i)+O(1).
 $$
 
 The dominant term is
 
 $$
-O(n)\cdot O(n)=O(n^2).
+\sum_{i=2}^{n}\Theta(i)=\Theta(n^2).
 $$
 
 Therefore, when the cost of arithmetic on growing Fibonacci numbers is included, this implementation runs in
 
 $$
-\boxed{O(n^2)}
+\boxed{\Theta(n^2)}
 $$
 
 time under the lecture's digit-by-digit addition model.
 
-This does not provide an exact time. Using the lecture's rough intuition, a quadratic algorithm might handle an input around 30,000 in one second. Depending on the hardware, compiler, and implementation, the real threshold might be closer to 1,000 or one million. It is unlikely to be as low as 10 or as high as one billion, but obtaining a precise answer requires the messy details that asymptotic analysis intentionally omits.
+This does not provide an exact time. Under the lecture's rough assumption of $10^9$ constant-time basic operations per second, a generic quadratic algorithm might handle an input around 30,000 in one second. That figure is only an illustration, not a prediction for this Fibonacci implementation; a precise answer requires the implementation details that asymptotic analysis intentionally omits.
 
-> **Connection to the previous lecture:** counting each arithmetic operation as constant-time gave the iterative Fibonacci method $O(n)$ operations. Accounting for the increasing size of $F_i$ gives $O(n^2)$ time in this simplified bit/digit-cost model. The conclusions answer different cost-model questions and are not contradictory.
+> **Connection to the previous lecture:** counting each arithmetic operation as constant-time gave the iterative Fibonacci method $\Theta(n)$ operations. Accounting for the increasing size of $F_i$ gives $\Theta(n^2)$ time in this simplified bit/digit-cost model. The conclusions answer different cost-model questions and are not contradictory.
 
 ---
 
@@ -465,7 +465,7 @@ $$
 f(n)=o(g(n))
 $$
 
-means that $f$ grows **strictly slower** than $g$. One equivalent definition is
+means that $f$ grows **strictly slower** than $g$. Provided that $g(n)\ne0$ for all sufficiently large $n$, one equivalent definition is
 
 $$
 \lim_{n\to\infty}\frac{f(n)}{g(n)}=0.

@@ -1,15 +1,264 @@
-​Hello everybody, welcome back to the Data Structures and ​Algorithm specialization and the Algorithmic Toolbox course within it. ​This is the last lecture in the introductory unit and ​here we're going to give sort of an overview of the course. ​And in particular, what we're going to do is we're going to talk about sort ​of the philosophy of the course, and how it fits into the what we're going to ​be teaching you within the rest of this course. ​So, there's a problem. ​Algorithm design is hard, and in particular it's hard to teach. ​And by this I actually mean something pretty specific. ​Now, algorithms solve many, many different problems. 
-​You can use them to find paths between locations on a map, ​or find good matchings with some property, or identify images in a photograph. ​Many, many different sort of unrelated sounding problems ​can all be solved by algorithms. ​And because the sorts of things that an algorithm problem might ask you to ​do are so ​varied, there's no unified technique that will allow you to solve all of them. ​And this is different from what you see in a lot of classes, when you're learning linear ​algebra they talk about how do you solve systems of linear equations. ​And they teach you some technique, like row reduction, and ​then you're sort of done. ​You just sort of need to practice it, ​and you can solve any system of linear equations. ​They give you a system of linear equations, ​you turn the crank on this row reduction technology and out pops an answer. 
-​For algorithms there isn't that sort of thing. ​There's no general procedure where I give you an algorithms problem and you sort of ​plug it into this machine and turn a crank and out pops a good algorithm for it. ​And this makes it hard to teach. ​If there was such a thing, we could just teach you, here's this thing that you do. ​You do this, and ​you'll have a good algorithm for any problem you might run into. ​And it's harder than that. ​I mean, sometimes, in order to find a good algorithm, ​it requires that you have a unique insight. 
-​You're working on some problem that no one's ever looked at before. ​In order to find a good algorithm for it, you need to come up with some clever idea ​that no one else has ever come up with before. ​This is why sort of algorithms are so well studied, ​why they're such an active field of research. ​There are still so many different new things yet to be discovered there. ​And we certainly can't teach you things that haven't been discovered yet. ​And we also can't teach you things custom tailored to ​the problems that you are going to run into in your life as a programmer. ​So since we can't teach you everything you need to know about how to solve ​all of your algorithm problems, what can we teach you? 
-​Well, there are sort of two things. ​One thing that we can definitely give you is practice designing algorithms. ​We're going to have lots of homework problems with lots of things for ​you to work on, and this will give you practice, how do you, ​given a problem you haven't seen before, come up with a good algorithm for it? ​Once you have the algorithm, how do you implement it and ​make sure everything works and runs reasonably well? ​That's something you can practice. ​And it turns out that for the type of problems where they're sort of very ​general and can be many different things, I mean, it's possible to solve a lot ​of them, and one of the ways to be able to solve them is practice. ​But we're also going to do more. 
-​We're not just going to throw you in the deep end and say, try to swim, ​try to program all of these algorithms. ​There is something useful. ​We can't teach you a generic procedure that will solve ​any algorithms problem for you. ​But what we can do is we can give you some common tools. ​Some very useful tools for algorithm design. ​And especially in this first course in our specialization ​we're really going to focus on helping to build up your algorithmic toolbox. ​And in particular, this course is going to focus on three of the most common and ​most generally applicable algorithmic design techniques. 
-​The first of these is greedy algorithms. ​This is something where you're trying to construct some big object, and ​the way you do it is you sort of make one decision in the most greedy, ​locally optimal way you can. ​And once you've made that decision you make another decision in the most greedy, ​locally optimal way you can. ​And you just keep making these decisions one at a time until you have an answer. ​And surprisingly somehow making these locally optimal decisions ​gives you a globally optimal solution. ​And when this happens it gives you very clean algorithms and it's great. ​That's the first thing we'll talk about. 
-​Next, we'll talk about divide and conquer, ​which is a technique where you've got some big problem you're trying to solve. ​What you do is you break it into a bunch of little pieces, you solve all ​the pieces, and then you put their answers together to solve the original thing. ​Finally we'll talk about dynamic programming. ​This is a little bit more subtle of a technique. ​This is what you get when you've got some sort of large problem, that has sort of ​a lot of, not sub-problems, but sort of related problems to it. ​And this sort of whole family of related problems, ​their solutions sort of depend on one another in a particular type of way. ​And when you have it there's this great trick that you have, ​where you sort of start at the small problems at the bottom of the pile. 
-​And you solve all of them. ​And you sort of keep track of all of your answers. ​And you use the answers to the small problems, ​to build up to obtain answers to the larger and larger problems. ​So these are what we're going to talk about. ​Each of the techniques we're going to talk about, how you recognize when it applies, ​how do you analyze it when it applies, ​and some practical techniques about how to implement, how to use them. ​All that good stuff. ​So there's one other thing before we let you go into the fun world of ​greedy algorithms that you should keep in mind throughout this course, ​and that's that there are these, maybe, different levels of algorithm design. 
-​There's sort of different levels of sophistication that go into it. ​At sort of the very lowest level, or top of this slide, ​I guess, there is the naive algorithm. ​This is sort of a thing where you take the definition of a problem and ​you turn it into an algorithm, and we saw this for Fibonacci numbers and ​greatest common divisors. ​You sort of interpreted the definition of the thing you wanted to compute as ​an algorithm, and you were done. ​Now, these things are often very slow, as we saw. ​Often they look like in order to find the best way of doing something, ​we enumerate all ways to do it, and then figure out which one's the best. ​On the other hand, these are slow, but it's often a good idea to first come up ​with a naive algorithm, just make sure you have some algorithm that works. 
-​Sometimes this works well and often you can just be done with it. ​Other times, it's too slow, but at least you made sure that you understood ​what problem you were working on and have something that runs. ​But after that, the next thing that you want to do, ​if this naive algorithm is too slow, is you try and look at your tool box. ​You say, are there any standard techniques that I know that apply here? ​Maybe there's a greedy algorithm that solves this problem, or ​maybe I have to use a dynamic program. ​But if you can find one of these standard techniques that work, ​often that doesn't involve too much effort on your part, and ​gives you something that works pretty well. ​Now once you have something that works, you often want to optimize it. 
-​And there are lots of ways to improve an existing algorithm. ​Reduce the runtime from n-cubed to n-squared or n-squared to n. ​And to do this, there are just a whole bunch of things. ​Maybe sometimes you could just sort of rearrange the order in which you do ​the operations to cut out some of the work that you do. ​Sometimes you have to introduce a data structure to speed things up. ​There are a bunch of ways to do this. ​We'll talk a little bit about how this works. 
-​And these three levels are things that you should be comfortable with and ​able to apply pretty well by the end of this course. ​However, sometimes these three are not enough. ​Sometimes a naive algorithm is just too slow, the standard tools don't apply, ​there's nothing that you can really optimize to improve things. ​Sometimes in order to get a workable algorithm, what you need is magic. ​You need some unique insight that no one else has ever had before. ​You need some sort of clever new idea and these, there's only so ​much we can do to teach you how to produce magic. ​We will show you some examples of things that really did have clever ideas that ​maybe you can't reproduce the thought process like, ​how do you come up with this crazy idea, that just happens to make this work? 
-​You should at least be able to appreciate the sort of thought that goes into this ​sort of thing. ​In any case it's something to keep in mind when looking on that, ​when thinking about our problems, and what sort of things are expected of you. ​In any case, that is basically it for the introductory segment. ​We've talked a lot about sort of why algorithms are important and ​given you some examples. ​We've talked about asymptotic notation, ​but now it's time to let you go to the rest of the course. ​The rest of the course will keep giving you exercises to hone your skills, and ​each unit of this course will cover one of these major techniques. ​After I leave you with the end of the introduction, Michael will pick up and ​talk to you about greedy algorithms. 
-​Next off, Neil will talk to you about divide and conquer. ​Finally, Pavel will have a unit on dynamic programming. ​Each of these, they will talk to you about where the technique applies, ​how to analyze it, how to implement it, all that good stuff. ​But this is where I leave you, I hope you enjoyed the introduction, and I will ​put you in Michael's very capable hands to start learning about greedy algorithms ​starting in the next lecture. ​So, until then, farewell. 
+# Course Overview: Building an Algorithmic Toolbox
+
+## Lecture purpose
+
+This is the final lecture in the introductory unit of the **Algorithmic Toolbox** course within the Data Structures and Algorithms Specialization. It explains:
+
+- why algorithm design is difficult to teach;
+- what the course can realistically teach;
+- the three major algorithm-design techniques covered next;
+- the different levels of sophistication in algorithm design; and
+- how the remaining course units are organized.
+
+The course cannot provide a mechanical procedure that solves every possible algorithmic problem. Instead, it combines repeated practice with a toolbox of broadly useful design techniques.
+
+## 1. Why algorithm design is difficult
+
+Algorithms solve an enormous variety of problems, including:
+
+- finding paths between locations on a map;
+- finding matchings that satisfy or optimize some property; and
+- identifying objects in a photograph.
+
+These tasks sound unrelated because algorithmic problems can ask for many fundamentally different things. Consequently, there is no single unified technique that solves all of them.
+
+### Contrast with a mechanical mathematical technique
+
+In linear algebra, students can learn a standard technique such as row reduction. Given a system of linear equations, they can repeatedly apply the procedure and obtain an answer. In that setting, one can metaphorically put the problem into a machine, turn a crank, and receive a solution.
+
+Algorithm design has no comparable universal machine:
+
+```mermaid
+flowchart LR
+    A["New algorithmic problem"] --> B{"Universal solution procedure?"}
+    B -->|"No"| C["Understand the problem"]
+    C --> D["Try known design tools"]
+    D --> E["Adapt, optimize, or discover a new insight"]
+```
+
+There is no general procedure into which any algorithmic problem can be inserted to automatically produce a good algorithm. If such a procedure existed, teaching algorithm design would be easy: students would only need to learn and practice that one procedure.
+
+### Some problems require a genuinely new insight
+
+For a problem nobody has studied before, finding a useful algorithm may require a clever idea that nobody has previously discovered. This is one reason algorithms remain an active field of research: many important ideas and techniques are still unknown.
+
+The course cannot teach undiscovered ideas, nor can it provide techniques custom-made for every problem a student might encounter later as a programmer. It therefore cannot teach everything anyone could ever need to solve every algorithmic problem.
+
+## 2. What the course can teach
+
+Although the course cannot provide a universal solution procedure, it can develop two valuable capabilities.
+
+### 2.1 Practice designing and implementing algorithms
+
+The course includes many homework problems so students can practice the complete problem-solving process:
+
+1. Receive a problem they have not seen before.
+2. Develop a good algorithm for it.
+3. Implement the algorithm correctly.
+4. Verify that the implementation works.
+5. Ensure that it runs reasonably efficiently.
+
+For broad, open-ended skills such as algorithm design, practice is itself a major part of learning. Exposure to many problems develops judgment, pattern recognition, and implementation skill.
+
+### 2.2 A collection of common design tools
+
+Students will not simply be given difficult programming problems without guidance. Although no technique solves every problem, several methods apply broadly and repeatedly.
+
+The purpose of this first course is to build an **algorithmic toolbox** centered on three common and generally applicable design techniques:
+
+```mermaid
+flowchart TD
+    T["Algorithmic Toolbox"] --> G["Greedy algorithms"]
+    T --> D["Divide and conquer"]
+    T --> P["Dynamic programming"]
+    G --> G1["Make locally optimal choices"]
+    D --> D1["Split, solve pieces, combine"]
+    P --> P1["Solve and store related smaller problems"]
+```
+
+## 3. Greedy algorithms
+
+A greedy algorithm constructs a larger solution through a sequence of decisions. At each stage, it makes the choice that appears best immediately—the **locally optimal** or most “greedy” choice.
+
+The process is:
+
+1. Make the locally optimal decision.
+2. Move to the next decision.
+3. Again choose the locally optimal option.
+4. Continue until a complete answer has been constructed.
+
+The surprising and useful outcome, when the method applies, is that a sequence of locally optimal decisions produces a **globally optimal** solution.
+
+Greedy approaches can lead to especially clean algorithms. However, they do not work for every problem, so students must learn how to recognize situations in which greedy choices can be justified.
+
+## 4. Divide and conquer
+
+Divide and conquer solves a large problem by decomposing it into smaller pieces:
+
+1. **Divide** the original problem into smaller subproblems.
+2. **Conquer** the subproblems by solving each one.
+3. **Combine** their answers to solve the original problem.
+
+```mermaid
+flowchart TD
+    A["Large problem"] --> B["Smaller problem 1"]
+    A --> C["Smaller problem 2"]
+    A --> D["Smaller problem …"]
+    B --> E["Partial answer 1"]
+    C --> F["Partial answer 2"]
+    D --> G["Partial answer …"]
+    E --> H["Combine into final answer"]
+    F --> H
+    G --> H
+```
+
+This technique is useful when the solution to a problem can be reconstructed efficiently from solutions to appropriately chosen smaller instances.
+
+## 5. Dynamic programming
+
+Dynamic programming is a subtler technique. It applies when a large problem belongs to a family of related problems whose solutions depend on one another in a useful way.
+
+The method generally works from smaller problems upward:
+
+1. Identify the relevant family of related problems.
+2. Start with the smallest problems at the bottom.
+3. Solve them and store their answers.
+4. Use those saved answers to solve progressively larger problems.
+5. Continue until the original large problem has been solved.
+
+Dynamic programming avoids unnecessarily solving the same related problem repeatedly. Its central idea resembles the efficient Fibonacci method: preserve answers to smaller problems and reuse them when building larger answers.
+
+## 6. What will be taught for each technique
+
+For greedy algorithms, divide and conquer, and dynamic programming, the course will cover:
+
+- how to recognize when the technique applies;
+- how to analyze an algorithm built with it;
+- how to implement it in practice; and
+- how to use it effectively on concrete problems.
+
+The techniques are not universal formulas. They are reusable patterns that improve the chance of recognizing a productive approach to a new problem.
+
+## 7. Levels of algorithm design
+
+The lecture describes several levels of sophistication in developing an algorithm. They form a useful progression:
+
+```mermaid
+flowchart TD
+    A["1. Naive algorithm"] --> B["2. Apply standard toolbox techniques"]
+    B --> C["3. Optimize an existing solution"]
+    C --> D["4. New insight or 'magic'"]
+```
+
+The first three levels are skills students should become comfortable applying during this course. The fourth may require originality beyond what any standard technique can guarantee.
+
+### Level 1: Develop a naive algorithm
+
+A naive algorithm often comes directly from the problem definition. This was seen with both Fibonacci numbers and greatest common divisors: the definition was interpreted as a procedure, immediately producing a correct algorithm.
+
+A common naive strategy for optimization problems is:
+
+1. enumerate every possible way of solving the problem;
+2. evaluate each possibility; and
+3. return the best one.
+
+Such algorithms are often very slow. Nevertheless, beginning with a naive solution is frequently worthwhile because it:
+
+- confirms that at least one correct algorithm exists;
+- tests whether the problem has been understood correctly;
+- provides a working reference implementation;
+- may be sufficient when inputs are small; and
+- creates a starting point for later improvement.
+
+Sometimes the naive solution performs well enough, and no further work is necessary. When it is too slow, move to the next level.
+
+### Level 2: Look in the algorithmic toolbox
+
+Ask whether a standard design technique applies:
+
+- Can greedy choices solve the problem?
+- Can the problem be divided into smaller independent pieces?
+- Can dynamic programming exploit related or overlapping problems?
+
+Recognizing an applicable standard technique may require relatively little new invention while producing an algorithm that works well.
+
+### Level 3: Optimize the working algorithm
+
+Once a correct algorithm exists, it can often be improved. Important asymptotic improvements might reduce runtime:
+
+- from $O(n^3)$ to $O(n^2)$; or
+- from $O(n^2)$ to $O(n)$.
+
+Possible optimization strategies include:
+
+- rearranging the order of operations to eliminate unnecessary work;
+- avoiding repeated calculations;
+- introducing an appropriate data structure; and
+- otherwise reorganizing the computation.
+
+The course discusses some of these improvement methods. By the end, students should be comfortable producing naive solutions, applying standard design techniques, and optimizing existing algorithms.
+
+### Level 4: Find a unique insight—the “magic” level
+
+Sometimes the first three levels are not enough:
+
+- the naive algorithm is unacceptably slow;
+- none of the standard tools applies directly; and
+- ordinary optimization cannot produce the required improvement.
+
+In such cases, a workable algorithm may require a unique, clever idea—what the lecturer informally calls **magic**. This could be an insight nobody has previously had for that problem.
+
+There is only so much a course can do to teach the production of such insights. It can present algorithms based on clever ideas and help students appreciate the thought involved, even when the original discovery process cannot be reproduced as a standard recipe.
+
+This distinction is useful when judging what a problem expects: some exercises test known techniques, while genuinely new research problems may demand original insights.
+
+## 8. A practical workflow for new problems
+
+The lecture's ideas can be turned into a working process:
+
+1. **Understand the problem precisely.** Identify the input, output, constraints, and correctness requirement.
+2. **Create a naive solution.** Establish correctness and confirm understanding.
+3. **Analyze its runtime.** Decide whether it is adequate for the expected inputs.
+4. **Consult the toolbox.** Look for greedy, divide-and-conquer, dynamic-programming, or other known patterns.
+5. **Implement and verify.** Ensure the algorithm works in practice.
+6. **Optimize if needed.** Remove repeated work, reorganize operations, or use better data structures.
+7. **Seek a deeper structural insight** if standard techniques still do not meet the requirements.
+
+| Stage | Main question |
+|---|---|
+| Naive solution | Do I understand the problem, and can I solve it at all? |
+| Standard technique | Does a known design pattern fit the problem's structure? |
+| Optimization | Can I reduce unnecessary work or improve the runtime class? |
+| New insight | Is there a previously unnoticed property that changes the problem? |
+
+## 9. How this overview connects to the introductory unit
+
+The introduction established the foundation for the rest of the course:
+
+- **Why algorithms matter:** choosing the right method can separate an impossible computation from an immediate one.
+- **Fibonacci numbers:** direct recursion was correct but exponentially slow; storing and reusing earlier answers made computation efficient.
+- **Greatest common divisors:** the Euclidean algorithm used a structural lemma to replace a large problem with a smaller equivalent one.
+- **Asymptotic notation:** Big-O provides a clean way to describe how running time scales while ignoring machine-dependent constant factors.
+
+The course now moves from motivation and runtime analysis to the major ways algorithms are designed.
+
+## 10. Organization of the remaining course
+
+Each upcoming unit focuses on one major technique and explains where it applies, how to analyze it, and how to implement it:
+
+| Unit | Instructor | Main topic |
+|---|---|---|
+| Next unit | Michael | Greedy algorithms |
+| Following unit | Neil | Divide and conquer |
+| Final technique unit mentioned | Pavel | Dynamic programming |
+
+Daniel concludes the introductory segment and hands the course to Michael, who begins the study of greedy algorithms in the next lecture.
+
+## Central takeaway
+
+Algorithm design has no universal recipe. The course therefore develops algorithmic skill through two complementary methods:
+
+1. repeated practice on unfamiliar problems; and
+2. mastery of a toolbox containing broadly useful design techniques.
+
+Students should learn to start with a correct naive solution, recognize when a standard technique applies, analyze and optimize the result, and appreciate that some difficult problems ultimately require a new structural insight.
