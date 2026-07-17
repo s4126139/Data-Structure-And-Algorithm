@@ -24,7 +24,23 @@
 #         return a 
 #     else: return b
 
+def multiply_matrix(A,B):
+    return [[A[0][0]*B[0][0]+A[0][1]*B[1][0], A[0][0]*B[0][1]+A[0][1]*B[1][1]],
+            [A[1][0]*B[0][0]+A[1][1]*B[1][0], A[1][0]*B[0][1]+A[1][1]*B[1][1]]]
 
+def power_matrix(M,n):
+    if n%2 == 0:
+        return multiply_matrix(power_matrix(M,n/2),power_matrix(M,n/2))
+    else:
+        return multiply_matrix()
+
+def huge_fibonnaci_number(n,m):
+    if n <= 1:
+        return n%m
+    else:
+        M = [[1,1],
+             [1,0]]
+        power_matrix(M,n)
 
 n, m = map(int, input().split())
 print(huge_fibonnaci_number(n,m))
