@@ -29,10 +29,15 @@ def multiply_matrix(A,B):
             [A[1][0]*B[0][0]+A[1][1]*B[1][0], A[1][0]*B[0][1]+A[1][1]*B[1][1]]]
 
 def power_matrix(M,n):
+    if n == 0:
+        return [
+            [1,0],
+            [0,1]
+        ]
     if n%2 == 0:
-        return multiply_matrix(power_matrix(M,n/2),power_matrix(M,n/2))
+        return multiply_matrix(power_matrix(M,n//2),power_matrix(M,n//2))
     else:
-        return multiply_matrix()
+        return multiply_matrix(power_matrix(M,n-1), M)
 
 def huge_fibonnaci_number(n,m):
     if n <= 1:
@@ -40,7 +45,8 @@ def huge_fibonnaci_number(n,m):
     else:
         M = [[1,1],
              [1,0]]
-        power_matrix(M,n)
+        M_pow_n = power_matrix(M,n)
+    return M_pow_n[0][1]%m
 
 n, m = map(int, input().split())
 print(huge_fibonnaci_number(n,m))
