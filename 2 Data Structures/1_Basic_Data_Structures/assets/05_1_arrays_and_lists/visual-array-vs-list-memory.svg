@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Array memory versus linked-list memory</title>
+  <desc id="desc">An array stores equal-size elements in consecutive addresses, while a linked list stores nodes at non-contiguous addresses connected by next pointers.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#334155"/></marker>
+    <style>
+      .title{font:700 28px system-ui,sans-serif;fill:#0f172a}.label{font:600 20px system-ui,sans-serif;fill:#0f172a}.body{font:18px system-ui,sans-serif;fill:#334155}.mono{font:18px ui-monospace,monospace;fill:#0f172a}.box{stroke:#334155;stroke-width:2}.arrow{stroke:#334155;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="560" fill="#f8fafc"/>
+  <text x="50" y="54" class="title">Physical layout explains the trade-off</text>
+  <rect x="40" y="85" width="1120" height="190" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="70" y="125" class="label">Array: one contiguous block</text>
+  <text x="70" y="156" class="body">Equal-size cells make an address computable directly.</text>
+  <g transform="translate(70 182)">
+    <g fill="#ffffff">
+      <rect class="box" x="0" y="0" width="120" height="64"/><rect class="box" x="120" y="0" width="120" height="64"/><rect class="box" x="240" y="0" width="120" height="64"/><rect class="box" x="360" y="0" width="120" height="64"/><rect class="box" x="480" y="0" width="120" height="64"/>
+    </g>
+    <g class="mono" text-anchor="middle"><text x="60" y="39">A[0]</text><text x="180" y="39">A[1]</text><text x="300" y="39">A[2]</text><text x="420" y="39">A[3]</text><text x="540" y="39">A[4]</text></g>
+    <text x="630" y="27" class="mono">addr(A[i]) = base + i × w</text>
+    <text x="630" y="54" class="body">Access: O(1) • insert/delete inside: shift cells</text>
+  </g>
+  <rect x="40" y="305" width="1120" height="215" rx="18" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="70" y="347" class="label">Linked list: nodes may live anywhere</text>
+  <text x="70" y="378" class="body">Each node pays for a pointer; the pointer supplies the ordering.</text>
+  <g transform="translate(70 410)">
+    <text x="0" y="40" class="mono">head</text><path class="arrow" d="M60 34 C85 34 85 30 110 30"/>
+    <g>
+      <rect class="box" x="115" y="0" width="115" height="62" fill="#fff"/><line x1="180" y1="0" x2="180" y2="62" stroke="#334155" stroke-width="2"/><text x="146" y="38" class="mono" text-anchor="middle">7</text>
+      <rect class="box" x="350" y="62" width="115" height="62" fill="#fff"/><line x1="415" y1="62" x2="415" y2="124" stroke="#334155" stroke-width="2"/><text x="382" y="100" class="mono" text-anchor="middle">10</text>
+      <rect class="box" x="600" y="0" width="115" height="62" fill="#fff"/><line x1="665" y1="0" x2="665" y2="62" stroke="#334155" stroke-width="2"/><text x="632" y="38" class="mono" text-anchor="middle">4</text>
+      <rect class="box" x="835" y="58" width="115" height="62" fill="#fff"/><line x1="900" y1="58" x2="900" y2="120" stroke="#334155" stroke-width="2"/><text x="867" y="96" class="mono" text-anchor="middle">13</text>
+    </g>
+    <path class="arrow" d="M212 30 C270 30 280 93 345 93"/><path class="arrow" d="M447 93 C515 93 530 30 595 30"/><path class="arrow" d="M697 30 C765 30 775 89 830 89"/>
+    <line x1="918" y1="72" x2="947" y2="106" stroke="#334155" stroke-width="3"/>
+    <text x="970" y="45" class="body">Traversal/search: O(n)</text><text x="970" y="76" class="body">Known-node rewiring: O(1)</text>
+  </g>
+</svg>
