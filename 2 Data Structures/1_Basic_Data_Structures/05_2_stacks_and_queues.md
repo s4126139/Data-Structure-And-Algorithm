@@ -350,7 +350,43 @@ The data structure determines how these costs are achieved:
 - Forgetting the deck's unused-slot rule. Five physical cells provide four usable positions.
 - Treating `read = write` as full in this design. Here it means empty; full is `next(write) = read`.
 
-## 10. Quick self-check
+## 10. Interactive web visualizers
+
+These external tools were checked on 2026-08-03. They require JavaScript and are best used in a desktop browser.
+
+### 10.1 Compare LIFO and FIFO directly
+
+[Open the Stack & Queue Visualizer](https://dsvisualizer.sudeepmishra.com.np/)
+
+This tool has Stack, Queue, and Combined modes, plus speed, single-step, pseudocode, explanation, and operation-history controls.
+
+Suggested experiment:
+
+1. In Stack mode, push `a`, `b`, and `c`; use `Peek`, then `Pop` twice. Confirm that the results are `c`, then `b`.
+2. Clear the structure and switch to Queue mode.
+3. Enqueue `a`, `b`, and `c`; dequeue twice. Confirm that the results are `a`, then `b`.
+4. Turn on the code and educational panels, then compare which end each operation changes.
+5. Use Combined mode to keep the same input sequence visible in both structures.
+
+### 10.2 Array versus linked implementations and circular wraparound
+
+[Open DS Simulator](https://dssim.vercel.app/)
+
+Use the Stack and Queue controls in the Linear Structures section. The simulator can switch representations and includes both linear and circular queues.
+
+Suggested reconstruction of slides 164-208:
+
+1. Select `Queue`, choose the array representation, and switch to `Circular Queue`.
+2. Enqueue `a`, `b`, and `c`.
+3. Dequeue twice so the front/read position advances.
+4. Enqueue `d`, `e`, and `f`; watch the rear/write position wrap to the start of the array.
+5. Compare the physical cells with the logical FIFO order beginning at the front/read pointer.
+6. Continue until the full condition appears, then dequeue everything and confirm the empty condition.
+7. Switch between array and linked-list representations to see that the public queue behavior stays the same even though the memory layout changes.
+
+The simulator may use `front`/`rear` instead of the lecture's `read`/`write`; they represent the same roles.
+
+## 11. Quick self-check
 
 1. After `Push(1), Push(2), Push(3), Pop()`, what remains?  
    **Answer:** `[1,2]`, with `2` on top; `Pop()` returns `3`.
@@ -364,7 +400,7 @@ The data structure determines how these costs are achieved:
 4. In the lecture design, when is that queue full?  
    **Answer:** When `(write + 1) mod 5 = read`.
 
-## 11. Slide coverage map
+## 12. Slide coverage map
 
 | Slides | Covered content |
 |---|---|
@@ -378,4 +414,3 @@ The data structure determines how these costs are achieved:
 | 161-163 | Queue-to-list operation mapping. |
 | 164-208 | Circular-array queue trace, wraparound, full error, repeated dequeue, and empty state. |
 | 209-211 | Queue summary: linked list or array; every operation `O(1)`. |
-

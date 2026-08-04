@@ -383,7 +383,46 @@ The fully parenthesized expression is `(5 - 3) + (6 * 2)`, which evaluates to `1
 - Using a stack for BFS. Level order requires FIFO behavior, so use a queue.
 - Enqueueing `nil` children in the lecture algorithm. The checks prevent unnecessary entries.
 
-## 15. Quick self-check
+## 15. Interactive web visualizers
+
+These external tools were checked on 2026-08-03. They require JavaScript and are best used in a desktop browser.
+
+### 15.1 Animate all four traversals
+
+[Open the Binary Tree Traversal Visualizer](https://livephysics.com/tools/tree-traversal-visualizer/)
+
+The tool builds a BST from inserted values or a comma-separated array, then animates in-order, pre-order, post-order, and level-order traversal with numbered visit badges.
+
+To reproduce the **shape** of the lecture's `Les` tree with numeric keys, insert:
+
+```text
+50, 30, 70, 20, 40, 60, 80, 75, 90
+```
+
+The correspondence is:
+
+```text
+50=Les, 30=Cathy, 70=Sam, 20=Alex, 40=Frank,
+60=Nancy, 80=Violet, 75=Tony, 90=Wendy
+```
+
+Run all four modes and translate the numeric output through that mapping. The resulting name sequences should match Sections 8-11. Use `Step` to stop at each node and identify whether the node action happens before, between, or after its recursive subtree visits.
+
+### 15.2 General trees, binary trees, and editable structure
+
+[Open TreeScope](https://tree-scope.vercel.app/)
+
+TreeScope supports binary trees, BSTs, and n-ary trees, interactive node editing, and step-by-step pre-order, in-order, and post-order traversal.
+
+Suggested experiment:
+
+1. Build the binary example `[1,2,3,null,4,5,null]` and run each DFS traversal.
+2. Add or remove a child and predict the new traversal before playing it.
+3. Switch to n-ary mode and create a root with three children, like `Fred -> Kate, Sally, Jim` from the terminology section.
+4. Add `Sam` and `Hugh` beneath `Kate`; use the resulting picture to identify roots, parents, children, siblings, leaves, levels, and height.
+5. Compare the binary node representation (`left`, `right`) with the general-tree representation (a list of children).
+
+## 16. Quick self-check
 
 1. What are the ancestors of `Tony` in the lecture BST?  
    **Answer:** `Violet`, `Sam`, and `Les`.
@@ -400,7 +439,7 @@ The fully parenthesized expression is `(5 - 3) + (6 * 2)`, which evaluates to `1
 5. What data structure controls BFS's frontier?  
    **Answer:** A FIFO queue.
 
-## 16. Slide coverage map
+## 17. Slide coverage map
 
 | Slides | Covered content |
 |---|---|

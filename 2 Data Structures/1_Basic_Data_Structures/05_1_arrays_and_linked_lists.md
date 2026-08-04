@@ -15,6 +15,137 @@ Keep this rule in mind:
 - Arrays make positions cheap to reach but expensive to move around.
 - Linked lists make known nodes cheap to reconnect but expensive to find.
 
+<details>
+<summary><strong>Why arrays make positions cheap to reach but expensive to move around</strong></summary>
+
+Arrays store elements next to each other in memory:
+
+```text
+[10][20][30][40][50]
+```
+
+Because the elements have fixed sizes, the computer can calculate the address of any position directly:
+
+```text
+address = start_address + index × element_size
+```
+
+Therefore:
+
+```text
+array[i] → O(1)
+```
+
+However, inserting or deleting an element in the middle requires shifting the elements after it.
+
+Example:
+
+```text
+Before:
+[10][20][30][40][50]
+
+Insert 25:
+[10][20][25][30][40][50]
+         ← 30, 40 and 50 must move
+```
+
+Therefore:
+
+```text
+Insert/delete in the middle → O(n)
+```
+
+</details>
+
+<details>
+<summary><strong>Why linked lists make known nodes cheap to reconnect but expensive to find</strong></summary>
+
+Linked-list nodes can be stored in different locations in memory:
+
+```text
+[10 | next] → [20 | next] → [30 | next]
+```
+
+The computer cannot calculate the address of node `i` directly.
+
+To reach node `2`, it must follow the links from `head`:
+
+```text
+head → node 0 → node 1 → node 2
+```
+
+Therefore:
+
+```text
+Find by index → O(n)
+```
+
+However, when the required node is already known, inserting or deleting only requires changing pointers.
+
+Example:
+
+```text
+A → B → C
+```
+
+Insert `X` after `B`:
+
+```text
+B.next = X
+X.next = C
+```
+
+Result:
+
+```text
+A → B → X → C
+```
+
+No other nodes need to move.
+
+Therefore:
+
+```text
+Reconnect known nodes → O(1)
+```
+
+</details>
+
+<details>
+<summary><strong>Important meaning of “known node”</strong></summary>
+
+If you already have a reference to node `B`:
+
+```text
+Insert/delete near B → O(1)
+```
+
+If you only know its index or value, you may need to search for it first:
+
+```text
+Find B → O(n)
+Reconnect B → O(1)
+Total → O(n)
+```
+
+</details>
+
+<details>
+<summary><strong>Summary</strong></summary>
+
+```text
+Array
+- Access by index: O(1)
+- Insert/delete in the middle: O(n)
+
+Linked list
+- Access by index: O(n)
+- Insert/delete at a known node: O(1)
+```
+
+</details>
+
+
 ## 2. Arrays
 
 ### 2.1 What an array is
@@ -362,7 +493,44 @@ The last condition handles insertion before the old head.
 - Updating only one direction in a doubly linked list. Both `next` and `prev` invariants must remain consistent.
 - Quoting `O(1)` insertion without stating that the target node is already known. Finding the target may cost `O(n)`.
 
-## 7. Quick self-check
+## 7. Interactive web visualizers
+
+These external tools were checked on 2026-08-03. They require JavaScript and are best used in a desktop browser.
+
+### 7.1 Array operations - Code Visualizer
+
+[Open the interactive Data Structures Visualizer](https://www.codevisualizer.app/data-structures)
+
+The Array panel supports push, pop, insertion at an index, removal at an index, and search while displaying the current indices and operation state.
+
+Suggested reconstruction of slides 23-33:
+
+1. Reset the array, then create or shuffle to a short example.
+2. Use `Push` to observe that appending touches the next free position.
+3. Use `Insert At` with index `0`; watch existing elements move right.
+4. Use `Remove At` at the beginning and then in the middle; compare the number of moved elements.
+5. Use `Search` and contrast its scan with direct indexed access.
+
+The important observation is that the animation work grows with the shifted suffix, explaining the `O(n)` rows in the lecture table.
+
+### 7.2 Singly and doubly linked lists - VisuAlgo
+
+[Open VisuAlgo's Linked List, Stack, Queue, DLL, and Deque visualizer](https://visualgo.net/en/list)
+
+If the page opens in e-Lecture mode, press `Esc` to enter Exploration Mode. Use the structure selector to switch between `LL` and `DLL`, and use the playback controls to step through individual pointer changes.
+
+Suggested reconstruction of slides 52-113:
+
+1. In `LL` mode, create `7 -> 10 -> 4 -> 13`.
+2. Insert `26` at the head and observe that only the new node and `head` change.
+3. Insert `8` at the tail and inspect the use of `tail`.
+4. Remove the tail and observe why a singly linked list must locate its predecessor.
+5. Switch to `DLL`, remove the tail again, and watch `tail.prev` make the operation local.
+6. Insert before and after a selected middle node; step through both `next` and `prev` repairs.
+
+Use the code/status panel beside the animation to connect each pointer movement to the pseudocode in Sections 3.5 and 4.2.
+
+## 8. Quick self-check
 
 1. In a 1-based row-major matrix with 8 columns, what is the linear offset of `(4, 3)`?  
    **Answer:** `(4 - 1) * 8 + (3 - 1) = 26`.
@@ -376,7 +544,7 @@ The last condition handles insertion before the old head.
 4. When is doubly linked deletion `O(1)`?  
    **Answer:** When the node to delete is already known; locating it by key is still `O(n)`.
 
-## 8. Slide coverage map
+## 9. Slide coverage map
 
 This table makes the consolidation auditable. Incremental animation frames are represented by their completed explanation above.
 
@@ -396,4 +564,3 @@ This table makes the consolidation auditable. Incremental animation frames are r
 | 103-111 | Doubly linked pseudocode for `PushBack`, `PopBack`, `AddAfter`, and `AddBefore`. |
 | 112-113 | Final singly and doubly linked complexity tables. |
 | 114-118 | Linked-list summary: front/back costs, search, non-contiguous storage, and known-node updates. |
-
