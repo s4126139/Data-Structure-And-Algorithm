@@ -24,29 +24,39 @@
 #         return a 
 #     else: return b
 
-def multiply_matrix(A,B):
-    return [[A[0][0]*B[0][0]+A[0][1]*B[1][0], A[0][0]*B[0][1]+A[0][1]*B[1][1]],
-            [A[1][0]*B[0][0]+A[1][1]*B[1][0], A[1][0]*B[0][1]+A[1][1]*B[1][1]]]
-
-def power_matrix(M,n):
-    if n == 0:
-        return [
-            [1,0],
-            [0,1]
+def multiply_matrix(A, B, m):
+    return [
+        [
+            (A[0][0] * B[0][0] + A[0][1] * B[1][0]) % m,
+            (A[0][0] * B[0][1] + A[0][1] * B[1][1]) % m
+        ],
+        [
+            (A[1][0] * B[0][0] + A[1][1] * B[1][0]) % m,
+            (A[1][0] * B[0][1] + A[1][1] * B[1][1]) % m
         ]
-    if n%2 == 0:
-        return multiply_matrix(power_matrix(M,n//2),power_matrix(M,n//2))
-    else:
-        return multiply_matrix(power_matrix(M,n-1), M)
+    ]
 
-def huge_fibonnaci_number(n,m):
-    if n <= 1:
-        return n%m
-    else:
-        M = [[1,1],
-             [1,0]]
-        M_pow_n = power_matrix(M,n)
-    return M_pow_n[0][1]%m
+
+def power_matrix(matrix, exponent, m):
+    result = [[1, 0], [0, 1]]
+
+    while exponent > 0:
+        if exponent % 2 == 1:
+            result = multiply_matrix(result, matrix, m)
+
+        matrix = multiply_matrix(matrix, matrix, m)
+        exponent //= 2
+
+    return result
+
+
+def huge_fibonacci_number(n, m):
+    if m <= 0:
+        raise ValueError("m must be positive")
+
+    matrix = [[1, 1], [1, 0]]
+    return power_matrix(matrix, n, m)[0][1]
+
 
 n, m = map(int, input().split())
-print(huge_fibonnaci_number(n,m))
+print(huge_fibonacci_number(n, m))

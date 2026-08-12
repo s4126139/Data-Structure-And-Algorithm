@@ -1,14 +1,3 @@
-# Last Digit of the Sum of Fibonacci Numbers
-# Problem
-# Compute the last digit of F0 + F1 + ···+ Fn.
-# Input: An integer n.
-# Output: The last digit of F0 + F1 +
-# ···+ Fn.
-# 1 + 1 + 2 + 3 + 5 + 8 = 20
-# Input format. An integer n.
-# Output format. (F0 + F1 + ···+ Fn) mod 10.
-# Constraints. 0 ≤n ≤1014.
-
 def multiplication_matrix(A,B):
     return [[(A[0][0]*B[0][0]+A[0][1]*B[1][0])%10,(A[0][0]*B[0][1]+A[0][1]*B[1][1])%10],
             [(A[1][0]*B[0][0]+A[1][1]*B[1][0])%10,(A[1][0]*B[0][1]+A[1][1]*B[1][1])%10]]
@@ -25,8 +14,10 @@ def fibo_nth(n):
         n >>=1
     return result[0][1]
 
-def last_digit_of_sum(n):
-    return (fibo_nth(n+2)-1)%10
+def last_digit_of_partial_sum(m,n):
+    if m == n:
+        return fibo_nth(n)
+    return fibo_nth(n+2)-fibo_nth(m+1)
 
-n = int(input())
-print(last_digit_of_sum(n))
+m,n = map(int,input().split())
+print(last_digit_of_partial_sum(m,n))

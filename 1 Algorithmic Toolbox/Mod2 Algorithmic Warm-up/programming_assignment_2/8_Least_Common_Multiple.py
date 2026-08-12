@@ -7,4 +7,5 @@ def LCM(a,b):
     gcd_ab = GCD(a,b)
     return int(a/gcd_ab)*int(b/gcd_ab)*gcd_ab
 
-print(LCM(761457,614573))
+a,b = map(int,input().split())
+print(LCM(a,b))
