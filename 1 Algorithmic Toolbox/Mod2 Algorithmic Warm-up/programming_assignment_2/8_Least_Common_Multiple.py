@@ -3,9 +3,9 @@ def GCD(a,b):
         b, a = a%b, b
     return a
 
-def LCM(a,b):
+def lcm(a,b):
     gcd_ab = GCD(a,b)
     return int(a/gcd_ab)*int(b/gcd_ab)*gcd_ab
 
 a,b = map(int,input().split())
-print(LCM(a,b))
+print(lcm(a,b))

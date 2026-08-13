@@ -24,39 +24,22 @@
 #         return a 
 #     else: return b
 
-def multiply_matrix(A, B, m):
-    return [
-        [
-            (A[0][0] * B[0][0] + A[0][1] * B[1][0]) % m,
-            (A[0][0] * B[0][1] + A[0][1] * B[1][1]) % m
-        ],
-        [
-            (A[1][0] * B[0][0] + A[1][1] * B[1][0]) % m,
-            (A[1][0] * B[0][1] + A[1][1] * B[1][1]) % m
-        ]
-    ]
+def multiplication_matrix(A,B,m):
+    return [[(A[0][0]*B[0][0]+A[0][1]*B[1][0])%m,(A[0][0]*B[0][1]+A[0][1]*B[1][1])%m],
+            [(A[1][0]*B[0][0]+A[1][1]*B[1][0])%m,(A[1][0]*B[0][1]+A[1][1]*B[1][1])%m]]
 
-
-def power_matrix(matrix, exponent, m):
-    result = [[1, 0], [0, 1]]
-
-    while exponent > 0:
-        if exponent % 2 == 1:
-            result = multiply_matrix(result, matrix, m)
-
-        matrix = multiply_matrix(matrix, matrix, m)
-        exponent //= 2
-
-    return result
-
-
-def huge_fibonacci_number(n, m):
-    if m <= 0:
-        raise ValueError("m must be positive")
-
-    matrix = [[1, 1], [1, 0]]
-    return power_matrix(matrix, n, m)[0][1]
+def last_digit_of_fibo_nth(n,m):
+    result = [[1,0],
+              [0,1]]
+    base = [[1,1],
+            [1,0]]
+    while n:
+        if n & 1:
+            result = multiplication_matrix(result,base,m)
+        base = multiplication_matrix(base,base,m)
+        n >>=1
+    return result[0][1]
 
 
 n, m = map(int, input().split())
-print(huge_fibonacci_number(n, m))
+print(last_digit_of_fibo_nth(n,m))

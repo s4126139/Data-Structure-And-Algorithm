@@ -17,7 +17,7 @@ def fibo_nth(n):
 def last_digit_of_partial_sum(m,n):
     if m == n:
         return fibo_nth(n)
-    return fibo_nth(n+2)-fibo_nth(m+1)
+    return (fibo_nth(n+2)-fibo_nth(m+1))%10
 
 m,n = map(int,input().split())
 print(last_digit_of_partial_sum(m,n))
